@@ -1,6 +1,6 @@
 with screen_interface; use screen_Interface;
 
-procedure Hello
+procedure bADAss
 is
    type Color_Array is array (Natural range <>) of Color;
    All_Colors : constant Color_Array :=
@@ -63,4 +63,4 @@ begin
             end loop;
          end loop;
       end;
-end hello;
+end bADAss;

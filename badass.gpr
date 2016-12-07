@@ -1,7 +1,7 @@
-project Demo is
+project bADAss is
 
    for Languages use ("Ada");
-   for Main use ("hello.adb");
+   for Main use ("badass.adb");
    for Source_Dirs use (".", "stm32f4");
    for Object_Dir use "obj";
    for Exec_Dir use ".";
@@ -30,4 +30,4 @@ project Demo is
       for Communication_Protocol use "remote";
    end Ide;
 
-end Demo;
+end bADAss;
