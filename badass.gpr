@@ -2,7 +2,7 @@ project bADAss is
 
    for Languages use ("Ada");
    for Main use ("badass.adb");
-   for Source_Dirs use (".", "stm32f4");
+   for Source_Dirs use (".", "stm32f4", "core");
    for Object_Dir use "obj";
    for Exec_Dir use ".";
    for Target use "arm-eabi";
