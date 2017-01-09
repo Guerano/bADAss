@@ -2,6 +2,7 @@ with screen_interface; use screen_Interface;
 with core_geometry; use core_geometry;
 with game_player; use game_player;
 with game_ball; use game_ball;
+with core_utils; use core_utils;
 with Ada.Real_Time; use Ada.Real_Time;
 
 procedure bADAss
@@ -34,6 +35,7 @@ begin
   last_p.c := gray;
   last_b.c := gray;
   loop
+    sleep(40);
 
     state := get_touch_state;
     if State.Touch_Detected then
