@@ -16,11 +16,16 @@ begin
     end loop;
     fill_screen(gray);
 
-    p1.x := state.x;
-    p1.y := state.y;
     c1.x := state.x;
     c1.y := state.y;
+
     draw(p1, red);
-    draw(c1, red);
+
+    if intersects(p1, c1) then
+      draw(c1, blue);
+    else
+      draw(c1, green);
+    end if;
+
   end loop;
 end bADAss;

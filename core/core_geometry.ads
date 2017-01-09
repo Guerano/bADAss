@@ -40,4 +40,6 @@ package core_geometry is
 
   function sin(i : integer) return float;
 
+  function intersects(rect : rectangle; circ : circle) return boolean;
+
 end core_geometry;

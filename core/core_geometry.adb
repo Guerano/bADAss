@@ -1,3 +1,5 @@
+with core_math; use core_math;
+
 package body core_geometry is
   procedure draw(rect : rectangle; col : color) is
   begin
@@ -60,5 +62,21 @@ package body core_geometry is
 
     return float(mem(i)) / float(100);
   end sin;
+
+  function intersects(rect : rectangle; circ : circle) return boolean is
+    function intersects(circ : circle; x, y : uint) return boolean is
+    begin
+      return pow2(x - circ.x) + pow2(y - circ.y) <= pow2(circ.r);
+    end intersects;
+  begin
+    for x in rect.x .. rect.x + rect.w loop
+      for y in rect.y .. rect.y + rect.h loop
+        if intersects(circ, x, y) then
+          return true;
+        end if;
+      end loop;
+    end loop;
+    return false;
+  end intersects;
 
 end core_geometry;
