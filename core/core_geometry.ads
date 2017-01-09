@@ -18,6 +18,8 @@ package core_geometry is
       h : uint;
     end record;
 
+  function "=" (r1, r2 : rectangle) return boolean;
+
   type circle is
     record
 
@@ -31,6 +33,8 @@ package core_geometry is
       y : uint;
       r : uint;
     end record;
+
+  function "=" (c1, c2 : circle) return boolean;
 
   procedure draw(rect : rectangle; col : color);
 
