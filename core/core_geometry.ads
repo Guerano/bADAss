@@ -16,7 +16,8 @@ package core_geometry is
       y : uint;
       w : uint;
       h : uint;
-    end record;
+    end record
+    with dynamic_predicate => rectangle.w /= 0 and then rectangle.h /= 0;
 
   function "=" (r1, r2 : rectangle) return boolean;
 
@@ -32,7 +33,8 @@ package core_geometry is
       x : uint;
       y : uint;
       r : uint;
-    end record;
+    end record
+    with dynamic_predicate => circle.r /= 0;
 
   function "=" (c1, c2 : circle) return boolean;
 
@@ -40,9 +42,11 @@ package core_geometry is
 
   procedure draw(circ : circle; col : color);
 
-  function cos(i : integer) return float;
+  function cos(i : integer) return float
+    with post => cos'result <= 1.0 and then cos'result >= -1.0;
 
-  function sin(i : integer) return float;
+  function sin(i : integer) return float
+    with post => sin'result <= 1.0 and then sin'result >= -1.0;
 
   function intersects(rect : rectangle; circ : circle) return boolean;
 

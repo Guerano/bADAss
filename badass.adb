@@ -3,7 +3,6 @@ with core_geometry; use core_geometry;
 with game_player; use game_player;
 with game_ball; use game_ball;
 with core_utils; use core_utils;
-with Ada.Real_Time; use Ada.Real_Time;
 
 procedure bADAss
 is

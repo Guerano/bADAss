@@ -6,24 +6,24 @@ package body game_ball is
     return b1.ci = b2.ci and then b1.d = b2.d;
   end "=";
 
-  procedure move(p : in out ball; x, y : uint) is
+  procedure move(b : in out ball; x, y : uint) is
   begin
-    p.ci.x := x;
-    p.ci.y := y;
+    b.ci.x := x;
+    b.ci.y := y;
   end move;
 
-  procedure slide_y(p : in out ball; d : integer) is
+  procedure slide_y(b : in out ball; d : integer) is
   begin
-    if p.ci.y - d < 0 then
-      p.ci.y := 0;
+    if b.ci.y - d < 0 then
+      b.ci.y := 0;
     else
-      p.ci.y := p.ci.y - d;
+      b.ci.y := b.ci.y - d;
     end if;
   end slide_y;
 
-  procedure draw(p : ball) is
+  procedure draw(b : ball) is
   begin
-    draw(p.ci, p.c);
+    draw(b.ci, b.c);
   end draw;
 
 end game_ball;

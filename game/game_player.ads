@@ -11,9 +11,11 @@ package game_player is
 
   function "=" (b1, b2 : player) return boolean;
 
-  procedure move(p : in out player; x, y : uint);
+  procedure move(p : in out player; x, y : uint)
+    with post => p.r.x = x and then p.r.y = y;
 
-  procedure slide_x(p : in out player; d : integer);
+  procedure slide_x(p : in out player; d : integer)
+    with post => p'old.r.x + d = p.r.x;
 
   procedure draw(p : player);
 

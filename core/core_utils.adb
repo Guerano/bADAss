@@ -2,7 +2,7 @@ with Ada.Real_Time; use Ada.Real_Time;
 
 package body core_utils is
 
-  procedure sleep (ms : integer) is
+  procedure sleep (ms : natural) is
     next_start : time := clock;
     period : constant time_span := milliseconds (ms);
   begin

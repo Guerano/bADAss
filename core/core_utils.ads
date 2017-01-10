@@ -1,5 +1,5 @@
 package core_utils is
 
-  procedure sleep (Ms : Integer);
+  procedure sleep (ms : natural);
 
 end core_utils;
