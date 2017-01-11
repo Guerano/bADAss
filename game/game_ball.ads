@@ -20,6 +20,9 @@ package game_ball is
   procedure slide_y(b : in out ball; d : integer)
     with post => b'old.ci.y + d = b.ci.y;
 
+  procedure slide_x(b : in out ball; d : integer)
+    with post => b'old.ci.x + d = b.ci.x;
+
   procedure draw(b : ball);
 
 end game_ball;

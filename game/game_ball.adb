@@ -21,6 +21,15 @@ package body game_ball is
     end if;
   end slide_y;
 
+  procedure slide_x(b : in out ball; d : integer) is
+  begin
+    if b.ci.x - d < 0 then
+      b.ci.x := 0;
+    else
+      b.ci.x := b.ci.x - d;
+    end if;
+  end slide_x;
+
   procedure draw(b : ball) is
   begin
     draw(b.ci, b.c);
