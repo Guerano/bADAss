@@ -3,13 +3,14 @@ with core_geometry; use core_geometry;
 
 package game_ball is
 
-  type direction is (Down, Up);
+  subtype angle is integer;
 
   type ball is
     record
       ci : circle;
       c : color;
-      d : direction := Down;
+      a : angle := 0;
+      speed : float;
     end record;
 
   function "=" (b1, b2 : ball) return boolean;

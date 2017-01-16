@@ -61,10 +61,11 @@ begin
 
     draw(b);
 
-    if intersects_e then
-      b.d := Up;
-    elsif intersects_p then
-      b.d := Down;
+    -- change the direction of the ball if it hit a player
+    if intersects_enemy then
+      main_ball.a := 135;
+    elsif intersects_user then
+      main_ball.a := -45;
     end if;
 
     last_e := e;

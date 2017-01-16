@@ -3,7 +3,7 @@ package body game_ball is
   function "=" (b1, b2 : ball) return boolean is
   begin
     -- FIXME: Check color.
-    return b1.ci = b2.ci and then b1.d = b2.d;
+    return b1.ci = b2.ci and then b1.a = b2.a;
   end "=";
 
   procedure move(b : in out ball; x, y : uint) is
