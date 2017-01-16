@@ -90,9 +90,17 @@ begin
 
     -- change the direction of the ball if it hit a player
     if intersects_enemy then
-      main_ball.a := 135;
+      if cos(main_ball.a) > 0.0 then
+        main_ball.a := (main_ball.a + 45) mod 360;
+      else
+        main_ball.a := (main_ball.a - 45) mod 360;
+      end if;
     elsif intersects_user then
-      main_ball.a := -45;
+      if cos(main_ball.a) > 0.0 then
+        main_ball.a := (main_ball.a - 45) mod 360;
+      else
+        main_ball.a := (main_ball.a + 45) mod 360;
+      end if;
     end if;
 
     -- remember the last state
