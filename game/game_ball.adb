@@ -60,7 +60,7 @@ package body game_ball is
     end check_bounds;
   begin
     -- make the ball faster at each iteration
-    b.speed := b.speed + 0.1;
+    b.speed := b.speed + 0.01;
 
     check_bounds(b, 10);
     slide_x(b, integer(b.speed * cos(b.a)));
