@@ -4,62 +4,89 @@ with game_player; use game_player;
 with game_ball; use game_ball;
 with core_utils; use core_utils;
 
-procedure bADAss
-is
+procedure bADAss is
+
+  -- constants
   padding : constant uint := 20;
-  p_w : constant uint := 70;
-  p_h : constant uint := 20;
-  c_r : constant uint := 20;
-  e : player := ((width'last / 2 - p_w / 2, padding, p_w, p_h), red);
-  last_e : player := e;
-  p : player := ((width'last / 2 - p_w / 2, height'last - padding - p_h,
-                  p_w, p_h), green);
-  last_p : player := p;
-  b : ball := ((width'last / 2, height'last / 2, c_r), blue, Down);
-  last_b : ball := b;
+  player_width : constant uint := 70;
+  player_height : constant uint := 10;
+  circle_radius : constant uint := 10;
+  bg_color : constant color := black;
 
+  enemy : player := ((width'last / 2 - player_width / 2, padding, player_width,
+                      player_height), red);
+  user : player := ((width'last / 2 - player_width / 2,
+                     height'last - padding - player_height,
+                     player_width, player_height), green);
+  main_ball : ball := ((width'last / 2, height'last / 2, circle_radius), white,
+                        90, 10.0);
+
+  -- keep track of the last position of the objects
+  last_enemy : player := (enemy.r, bg_color);
+  last_user : player := (user.r, bg_color);
+  last_ball : ball := (main_ball.ci, bg_color, main_ball.a, main_ball.speed);
+
+  -- hold information about intersections
+  intersects_enemy : boolean;
+  intersects_user : boolean;
+
+  -- keep track of the last intersection states
+  last_intersects_enemy : boolean;
+  last_intersects_user : boolean;
+
+  -- touchscreen
   state : touch_state;
-  intersects_e : boolean;
-  intersects_p : boolean;
-  last_intersects_e : boolean;
-  last_intersects_p : boolean;
 begin
+  -- init
   screen_interface.initialize;
+  fill_screen(black);
+  draw(enemy);
+  draw(user);
+  draw(main_ball);
 
-  fill_screen(gray);
-  draw(e);
-  draw(p);
-  draw(b);
-  last_e.c := gray;
-  last_p.c := gray;
-  last_b.c := gray;
+  -- update loop
   loop
-    sleep(40);
+    sleep(60);
 
+    -- user interaction
     state := get_touch_state;
-    if State.Touch_Detected then
-      null;
+    if state.touch_detected then
+      draw(last_user);
+      if state.x > width'last / 2 then
+        slide_x(user, 10);
+      else
+        slide_x(user, -10);
+      end if;
+      draw(user);
     end if;
 
-    if b.d = Down then
-      slide_y(b, 20);
-    else
-      slide_y(b, -20);
+    -- move the ball
+    update(main_ball);
+
+    -- clean the ball before drawing the new one
+    -- FIXME: Draw only the part not intersecting with the main ball
+    draw(last_ball);
+
+    -- enemy follow the ball
+    update_enemy(enemy, main_ball);
+
+    -- compute intersections
+    intersects_enemy := intersects(enemy.r, main_ball.ci);
+    intersects_user := intersects(user.r, main_ball.ci);
+
+    if intersects_enemy then
+      slide_y(main_ball,
+              abs((enemy.r.y + enemy.r.h) - (main_ball.ci.y - main_ball.ci.r)));
+      draw(enemy);
+    end if;
+    if intersects_user then
+      slide_y(main_ball,
+              -abs(user.r.y - (main_ball.ci.y + main_ball.ci.r)));
+      draw(user);
     end if;
 
-    draw(last_b);
-
-    intersects_e := intersects(e.r, b.ci);
-    intersects_p := intersects(p.r, b.ci);
-
-    if last_intersects_e and then not intersects_e then
-      draw(e);
-    end if;
-    if last_intersects_p and then not intersects_p then
-      draw(p);
-    end if;
-
-    draw(b);
+    -- always draw the main ball
+    draw(main_ball);
 
     -- change the direction of the ball if it hit a player
     if intersects_enemy then
@@ -68,12 +95,12 @@ begin
       main_ball.a := -45;
     end if;
 
-    last_e := e;
-    last_p := p;
-    last_b := b;
-    last_b.c := gray;
-    last_intersects_e := intersects_e;
-    last_intersects_p := intersects_p;
+    -- remember the last state
+    last_enemy.r := enemy.r;
+    last_user.r := user.r;
+    last_ball.ci := main_ball.ci;
+    last_intersects_enemy := intersects_enemy;
+    last_intersects_user := intersects_user;
 
   end loop;
 end bADAss;

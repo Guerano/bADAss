@@ -1,5 +1,6 @@
 with screen_interface; use screen_interface;
 with core_geometry; use core_geometry;
+with game_ball; use game_ball;
 
 package game_player is
 
@@ -18,5 +19,9 @@ package game_player is
     with post => p'old.r.x + d = p.r.x;
 
   procedure draw(p : player);
+
+  procedure draw(p : player; c : color);
+
+  procedure update_enemy(p : in out player; b : ball);
 
 end game_player;

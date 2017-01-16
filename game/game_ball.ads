@@ -26,4 +26,7 @@ package game_ball is
 
   procedure draw(b : ball);
 
+  procedure update(b : in out ball)
+    with post => b'old.ci /= b.ci;
+
 end game_ball;
