@@ -1,3 +1,6 @@
+with core_utils; use core_utils;
+with core_math; use core_math;
+
 package body game_ball is
 
   function "=" (b1, b2 : ball) return boolean is

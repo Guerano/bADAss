@@ -1,8 +1,8 @@
 package body game_player is
 
-  function "=" (b1, b2 : player) return boolean is
+  function "=" (p1, p2 : player) return boolean is
   begin
-    return b1.r = b2.r;
+    return p1.r = p2.r;
   end "=";
 
   procedure move(p : in out player; x, y : uint) is

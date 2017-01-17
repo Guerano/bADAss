@@ -3,6 +3,7 @@ with core_geometry; use core_geometry;
 with game_player; use game_player;
 with game_ball; use game_ball;
 with core_utils; use core_utils;
+with core_math; use core_math;
 
 procedure bADAss is
 

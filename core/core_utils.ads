@@ -1,10 +1,14 @@
 package core_utils is
 
+  -- delay until support.
+  -- ms: time to sleep.
   procedure sleep (ms : natural);
 
   subtype rand_range is natural range 1 .. 100;
 
-  function rand return rand_range;
+  -- pseudo-random (not at all, actually) support.
+  function rand return rand_range
+    with post => rand'result <= 100;
 
 private
 
