@@ -1,6 +1,3 @@
-with core_utils; use core_utils;
-with core_math; use core_math;
-
 package body game_ball is
 
   function "=" (b1, b2 : ball) return boolean is
@@ -47,14 +44,14 @@ package body game_ball is
     begin
       if b.ci.x - b.ci.r < margin then
         b.ci.x := margin + b.ci.r;
-        if sin(b.a) < 0.0 then
+        if sin(integer(b.a)) < 0.0 then
           b.a := b.a + 90;
         else
           b.a := b.a - 90;
         end if;
       elsif b.ci.x + b.ci.r > width'last - margin then
         b.ci.x := width'last - margin - b.ci.r;
-        if sin(b.a)  < 0.0 then
+        if sin(integer(b.a))  < 0.0 then
           b.a := b.a - 90;
         else
           b.a := b.a + 90;
@@ -66,8 +63,8 @@ package body game_ball is
     b.speed := b.speed + 0.01;
 
     check_bounds(b, 10);
-    slide_x(b, integer(b.speed * cos(b.a)));
-    slide_y(b, integer(b.speed * sin(b.a)));
+    slide_x(b, integer(b.speed * cos(integer(b.a))));
+    slide_y(b, integer(b.speed * sin(integer(b.a))));
     check_bounds(b, 10);
   end update;
 

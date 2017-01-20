@@ -1,5 +1,7 @@
 package core_math is
 
+  type angle is mod 360;
+
   -- Compute the power of 2.
   -- i: integer to be squared.
   function pow2(i : integer) return integer

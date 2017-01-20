@@ -23,17 +23,12 @@ procedure bADAss is
                         90, 10.0);
 
   -- keep track of the last position of the objects
-  last_enemy : player := (enemy.r, bg_color);
   last_user : player := (user.r, bg_color);
   last_ball : ball := (main_ball.ci, bg_color, main_ball.a, main_ball.speed);
 
   -- hold information about intersections
   intersects_enemy : boolean;
   intersects_user : boolean;
-
-  -- keep track of the last intersection states
-  last_intersects_enemy : boolean;
-  last_intersects_user : boolean;
 
   -- touchscreen
   state : touch_state;
@@ -91,25 +86,22 @@ begin
 
     -- change the direction of the ball if it hit a player
     if intersects_enemy then
-      if cos(main_ball.a) > 0.0 then
-        main_ball.a := (main_ball.a + 45) mod 360;
+      if cos(integer(main_ball.a)) > 0.0 then
+        main_ball.a := main_ball.a + 45;
       else
-        main_ball.a := (main_ball.a - 45) mod 360;
+        main_ball.a := main_ball.a - 45;
       end if;
     elsif intersects_user then
-      if cos(main_ball.a) > 0.0 then
-        main_ball.a := (main_ball.a - 45) mod 360;
+      if cos(integer(main_ball.a)) > 0.0 then
+        main_ball.a := main_ball.a - 45;
       else
-        main_ball.a := (main_ball.a + 45) mod 360;
+        main_ball.a := main_ball.a + 45;
       end if;
     end if;
 
     -- remember the last state
-    last_enemy.r := enemy.r;
     last_user.r := user.r;
     last_ball.ci := main_ball.ci;
-    last_intersects_enemy := intersects_enemy;
-    last_intersects_user := intersects_user;
 
   end loop;
 end bADAss;

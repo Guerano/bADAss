@@ -1,9 +1,8 @@
 with screen_interface; use screen_interface;
 with core_geometry; use core_geometry;
+with core_math; use core_math;
 
 package game_ball is
-
-  subtype angle is integer;
 
   type ball is
     record
