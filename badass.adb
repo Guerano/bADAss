@@ -48,9 +48,9 @@ begin
     state := get_touch_state;
     if state.touch_detected then
       draw(last_user);
-      if state.x > width'last / 2 then
+      if state.x > width'last / 2 and user.r.x + user.r.w + 10 < width'last then
         slide_x(user, 10);
-      else
+      elsif state.x <= width'last / 2 and user.r.x - 10 > 0 then
         slide_x(user, -10);
       end if;
       draw(user);
