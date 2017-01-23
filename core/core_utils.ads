@@ -7,8 +7,7 @@ package core_utils is
   subtype rand_range is natural range 1 .. 100;
 
   -- pseudo-random (not at all, actually) support.
-  function rand return rand_range
-    with post => rand'result <= 100;
+  function rand return rand_range;
 
 private
 

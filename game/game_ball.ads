@@ -41,8 +41,10 @@ package game_ball is
   procedure draw(b : ball);
 
   -- Update the ball position, angle, and speed based on the game rules.
+  -- Returns the player that lost.
   -- b: the ball.
-  procedure update(b : in out ball)
+  type player_type is (the_enemy, the_player, none);
+  function update(b : in out ball) return player_type
     with post => b'old.ci /= b.ci;
 
 end game_ball;

@@ -39,7 +39,7 @@ package body game_ball is
     draw(b.ci, b.c);
   end draw;
 
-  procedure update(b : in out ball) is
+  function update(b : in out ball) return player_type is
     procedure check_bounds(b : in out ball; margin : uint) is
     begin
       if b.ci.x - b.ci.r < margin then
@@ -58,14 +58,38 @@ package body game_ball is
         end if;
       end if;
     end check_bounds;
+
+    function check_dead(b : ball) return player_type is
+    begin
+      if b.ci.y + b.ci.r >= height'last then
+        return the_player;
+      elsif b.ci.y - b.ci.r <= 0 then
+        return the_enemy;
+      else
+        return none;
+      end if;
+    end check_dead;
+    is_dead : player_type;
   begin
     -- make the ball faster at each iteration
     b.speed := b.speed + 0.01;
 
+    is_dead := check_dead(b);
+    if is_dead /= none then
+      return is_dead;
+    end if;
     check_bounds(b, 10);
+
     slide_x(b, integer(b.speed * cos(integer(b.a))));
     slide_y(b, integer(b.speed * sin(integer(b.a))));
+
+    is_dead := check_dead(b);
+    if is_dead /= none then
+      return is_dead;
+    end if;
     check_bounds(b, 10);
+
+    return none;
   end update;
 
 end game_ball;

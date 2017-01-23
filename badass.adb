@@ -4,6 +4,7 @@ with game_player; use game_player;
 with game_ball; use game_ball;
 with core_utils; use core_utils;
 with core_math; use core_math;
+with font; use font;
 
 procedure bADAss is
 
@@ -32,15 +33,25 @@ procedure bADAss is
 
   -- touchscreen
   state : touch_state;
+
+  -- loser
+  loser : player_type := none;
 begin
   -- init
   screen_interface.initialize;
+  fill_screen(black);
+  draw("Pong", height'last / 5);
+  sleep(2000);
+
+  sleep(60);
+
   fill_screen(black);
   draw(enemy);
   draw(user);
   draw(main_ball);
 
   -- update loop
+update_loop:
   loop
     sleep(60);
 
@@ -57,7 +68,11 @@ begin
     end if;
 
     -- move the ball
-    update(main_ball);
+    loser := update(main_ball);
+    case loser is
+      when none => null;
+      when others => exit update_loop;
+    end case;
 
     -- clean the ball before drawing the new one
     -- FIXME: Draw only the part not intersecting with the main ball
@@ -103,5 +118,18 @@ begin
     last_user.r := user.r;
     last_ball.ci := main_ball.ci;
 
+  end loop update_loop;
+
+  fill_screen(black);
+
+  if loser = the_player then
+    draw("You LOST", height'last / 6);
+  elsif loser = the_enemy then
+    draw("You WON", height'last / 6);
+  end if;
+
+  loop
+    null;
   end loop;
+
 end bADAss;
