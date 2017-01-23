@@ -24,6 +24,11 @@ package game_player is
     and then p.r.w = p'old.r.w
     and then p.r.h = p'old.r.h;
 
+  -- Decide if sliding the player is not going over the bounds.
+  -- p: the player.
+  ---d: the displacement.
+  function should_slide(p : player; d : integer) return boolean;
+
   -- Slide the player on the x axis.
   -- p: the player.
   -- d: delta displacement to be added.
