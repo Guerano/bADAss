@@ -52,4 +52,9 @@ package game_player is
   procedure update_enemy(p : in out player; b : ball)
     with post => p.r.w = p'old.r.w and then p.r.h = p'old.r.h;
 
+  -- Update the player position based touch state.
+  -- p: the player (the user)
+  -- s: the state
+  procedure update_user(p : in out player; state : touch_state);
+
 end game_player;

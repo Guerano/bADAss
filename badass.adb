@@ -15,6 +15,7 @@ procedure bADAss is
   circle_radius : constant uint := 10;
   bg_color : constant color := black;
 
+  -- main objects
   enemy : player := ((width'last / 2 - player_width / 2, padding, player_width,
                       player_height), red);
   user : player := ((width'last / 2 - player_width / 2,
@@ -28,8 +29,8 @@ procedure bADAss is
   last_ball : ball := (main_ball.ci, bg_color, main_ball.a, main_ball.speed);
 
   -- hold information about intersections
-  intersects_enemy : boolean;
-  intersects_user : boolean;
+  intersects_enemy : boolean := false;
+  intersects_user : boolean := false;
 
   -- touchscreen
   state : touch_state;
@@ -40,17 +41,17 @@ begin
   -- init
   screen_interface.initialize;
   fill_screen(black);
+
+  -- Display game name
   draw("Pong", height'last / 5);
-  sleep(2000);
+  sleep(3000);
 
-  sleep(60);
-
+  -- Initial draw of the screen
   fill_screen(black);
   draw(enemy);
   draw(user);
   draw(main_ball);
 
-  -- update loop
 update_loop:
   loop
     sleep(60);
@@ -59,19 +60,23 @@ update_loop:
     state := get_touch_state;
     if state.touch_detected then
       draw(last_user);
-      if state.x > width'last / 2 and user.r.x + user.r.w + 10 < width'last then
-        slide_x(user, 10);
-      elsif state.x <= width'last / 2 and user.r.x - 10 > 0 then
-        slide_x(user, -10);
-      end if;
-      draw(user);
+
+           --  if state.x > width'last / 2 and should_slide(user, 10) then
+           --    slide_x(user, 10);
+           --  elsif state.x <= width'last / 2 and should_slide(user, -10) then
+           --    slide_x(user, -10);
+           --  end if;
+           --  draw(user);
+
+
+      update_user(user, state);
     end if;
 
     -- move the ball
     loser := update(main_ball);
     case loser is
       when none => null;
-      when others => exit update_loop;
+      when others => exit update_loop; -- exit the loop if there is any looser.
     end case;
 
     -- clean the ball before drawing the new one

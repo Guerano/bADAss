@@ -11,6 +11,15 @@ package body game_player is
     p.r.y := y;
   end move;
 
+  function should_slide(p : player; d : integer) return boolean is
+  begin
+    if d >= 0 then
+      return p.r.x + p.r.w + d < width'last;
+    else
+      return p.r.x + d > 0;
+    end if;
+  end should_slide;
+
   procedure slide_x(p : in out player; d : integer) is
   begin
     if p.r.x + d < 0 then
@@ -43,5 +52,15 @@ package body game_player is
     draw(p);
   end if;
   end update_enemy;
+
+  procedure update_user(p : in out player; state : touch_state) is
+  begin
+    if state.x > width'last / 2 and should_slide(p, 10) then
+      slide_x(p, 10);
+    elsif state.x <= width'last / 2 and should_slide(p, -10) then
+      slide_x(p, -10);
+    end if;
+    draw(p);
+  end update_user;
 
 end game_player;
