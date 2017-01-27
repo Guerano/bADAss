@@ -103,6 +103,18 @@ souhaite, mais doit utiliser les zones de mouvement afin de bouger la raquette.
     * "="
     * draw
 
+#### Header
+
+```
+!INCLUDE "../core/core_geometry.ads"
+```
+
+#### Implementation
+
+```
+!INCLUDE "../core/core_geometry.adb"
+```
+
 ### Core Math
 
 * pow2
@@ -111,11 +123,35 @@ souhaite, mais doit utiliser les zones de mouvement afin de bouger la raquette.
 
 * sin
 
+#### Header
+
+```
+!INCLUDE "../core/core_math.ads"
+```
+
+#### Implementation
+
+```
+!INCLUDE "../core/core_math.adb"
+```
+
 ### Core Utils
 
 * sleep
 
 * rand
+
+#### Header
+
+```
+!INCLUDE "../core/core_utils.ads"
+```
+
+#### Implementation
+
+```
+!INCLUDE "../core/core_utils.adb"
+```
 
 ## Game
 
@@ -133,6 +169,18 @@ souhaite, mais doit utiliser les zones de mouvement afin de bouger la raquette.
 
 * update
 
+#### Header
+
+```
+!INCLUDE "../game/game_ball.ads"
+```
+
+#### Implementation
+
+```
+!INCLUDE "../game/game_ball.adb"
+```
+
 ### Game Player
 
 * "="
@@ -149,6 +197,18 @@ souhaite, mais doit utiliser les zones de mouvement afin de bouger la raquette.
 
 * update_user
 
+#### Header
+
+```
+!INCLUDE "../game/game_player.ads"
+```
+
+#### Implementation
+
+```
+!INCLUDE "../game/game_player.adb"
+```
+
 # Tests
 
 Afin de générer les tests, il faut lancer `gnattest`:
@@ -158,3 +218,7 @@ $ arm-eabi-gnattest -P badass.gpr core/core_geometry.ads core/core_math.ads
                                   core/core_utils.ads game/game_ball.ads
                                   game/game_player.ads
 ```
+
+# Coverage
+
+La couverture de code a été faite à l'aide de `gnatcov`.
